@@ -147,7 +147,7 @@
       <hr>
       <footer class="footer">
         <div class="container">
-          <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+          <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/tbiaglow/friendfinder">GitHub Repo</a></p>
         </div>
       </footer>
   
@@ -165,7 +165,7 @@
           </div>
           <div class="modal-body">
             <h2 id="match-name"></h2>
-            <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+            <!-- <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt=""> -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -241,9 +241,23 @@
   
           // AJAX post the data to the friends API.
           $.post("/api/friends", userData, function(data) {
-  
+            var difference = []
+            for (i = 0; i < data.length; i++) {
+              for (i = 0; i < data.scores.length; i++) {
+                difference[i] += Math.abs(data.scores[i] - userData.scores[i])
+              }
+              var min = difference[0];
+              var minIndex = 0;
+
+              for (var i = 1; i < difference.length; i++) {
+                  if (difference[i] < max) {
+                      minIndex = i;
+                      min = difference[i];
+                  }
+              }
+            };
             // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-            $("#match-name").text(data.name);
+            $("#match-name").text(data[minIndex].name);
             // $("#match-img").attr("src", data.photo);
   
             // Show the modal with the best match
