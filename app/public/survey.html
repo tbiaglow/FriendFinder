@@ -241,21 +241,7 @@
   
           // AJAX post the data to the friends API.
           $.post("/api/friends", userData, function(data) {
-            var difference = []
-            for (i = 0; i < data.length; i++) {
-              for (i = 0; i < data.scores.length; i++) {
-                difference[i] += Math.abs(data.scores[i] - userData.scores[i])
-              }
-              var min = difference[0];
-              var minIndex = 0;
-
-              for (var i = 1; i < difference.length; i++) {
-                  if (difference[i] < max) {
-                      minIndex = i;
-                      min = difference[i];
-                  }
-              }
-            };
+            
             // Grab the result from the AJAX post so that the best match's name and photo are displayed.
             $("#match-name").text(data[minIndex].name);
             // $("#match-img").attr("src", data.photo);
