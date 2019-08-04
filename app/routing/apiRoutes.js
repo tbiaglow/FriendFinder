@@ -12,21 +12,22 @@ console.log(newFriend);
 
 var difference = []
 for (i = 0; i < friends.length; i++) {
-    for (i = 0; i < data.scores.length; i++) {
-        difference[i] += Math.abs(friends.scores[i] - newFriend.scores[i])
+    for (j = 0; j < friends[i].scores.length; j++) {
+        difference[i] += Math.abs(friends[i].scores[j] - newFriend.scores[j])
     }
-    var min = difference[0];
-    var minIndex = 0;
+}
+var min = difference[0];
+var minIndex = 0;
 
-    for (var i = 1; i < difference.length; i++) {
-        if (difference[i] < max) {
-            minIndex = i;
-            min = difference[i];
-        }
+for (var i = 1; i < difference.length; i++) {
+    if (difference[i] < min) {
+        minIndex = i;
+        min = difference[i];
     }
 }
 
+match = friends[minIndex];
 friends.push(newFriend);
-res.json(newFriend);
+res.json(match);
 });
 }
